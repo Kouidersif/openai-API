@@ -23,7 +23,10 @@ If you're interested in exploring the possibilities of natural language generati
 
 Prerequisites:
 
-Python >=3.7.1 Git OpenAI API key Telegram bot token (if using Telegram integration)
+Python >=3.7.1 
+Git 
+OpenAI API key 
+Telegram bot token (if using Telegram integration)
 
 Clone the repository 
 Create Venv and Install dependencies by running : pip install -r requirements.txt 
