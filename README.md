@@ -14,3 +14,5 @@ Prerequisites:
 Python >=3.7.1 Git OpenAI API key Telegram bot token (if using Telegram integration)
 
 Clone the repository Create Venv Install dependencies by running : pip install -r requirements.txt Run the migrations: python manage.py makemigrations python manage.py migrate
+
+![telegram-cloud-document-2-5436324961939630234](https://user-images.githubusercontent.com/109435929/219484089-4d42612a-473e-4959-a2b3-add18615c55b.jpg)
