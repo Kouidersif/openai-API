@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static '/css/sign-in.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+        <style>
+            *{
+                font-family: 'Inter', sans-serif;
+            }
+            .form-signin input[type="password"] {
+              margin-bottom: 0px;
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+            }
+    .history-container {
+        max-height: 500px; /* Set a maximum height for the container */
+        overflow-y: auto; /* Add vertical scrolling */
+    }
+            </style>
+</head>
+<body>
+    {% block content %}
+
+    {% endblock content %}
+</body>
+</html>
