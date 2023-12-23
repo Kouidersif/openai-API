@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}User Registration{% endblock title %}
+
+
+{% block content %}
+
+    <main class="form-signin w-100 m-auto text-center">
+        <form method="post">
+            {% csrf_token %}
+        <img class="mb-4" src="https://www.clipartmax.com/png/middle/245-2454560_how-easy-is-the-video-robot-to-use-video-robot-logo.png" alt="" width="72" height="57">
+        <h1 class="h3 mb-3 fw-normal">Please Log in</h1>
+    
+        <div class="form-floating">
+            {{form.username}}
+            <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating">
+            {{form.password}}
+            <label for="floatingPassword">Password</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
+        </form>
+    </main>
+
+{% endblock content %}
