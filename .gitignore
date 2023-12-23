@@ -1,4 +1,13 @@
-.env
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__
 db.sqlite3
-migrations/
-__pycache__/
+
+# Environments 
+.env 
+.venv 
+env/ 
+venv/ 
+ENV/ 

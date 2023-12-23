@@ -49,13 +49,12 @@ def index(request):
                     )
                 #get response
                 
-                
-                bot_response = response.choices[0].message
+                bot_response = response.choices[0].message.content
                 
                 obj, created = ChatGptBot.objects.get_or_create(
                     user=request.user,
                     messageInput=clean_user_input,
-                    bot_response=bot_response.strip(),
+                    bot_response=bot_response,
                 )
             except openai.APIConnectionError as e:
                 #Handle connection error here
@@ -98,7 +97,6 @@ class SignUp(CreateView):
     def get_success_url(self):
         return reverse("main")
 
-# path("login/", LoginView.as_view(next_page='main', template_name="login.html", form_class = UserLoginForm), name="login"),
 
 
 class LoginView(FormView):
@@ -117,7 +115,7 @@ class LoginView(FormView):
     def form_invalid(self, form):
         for field, errors in form.errors.items():
             for error in errors:
-                messages.warning(self.request, f"{field}: {error}")
+                messages.warning(self.request, f"{error}")
         return redirect(self.request.META['HTTP_REFERER'])
     def get_success_url(self):
         return reverse("main")
