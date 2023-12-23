@@ -37,7 +37,11 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     application = ApplicationBuilder().token('6116411364:AAHVVJ-E5ZqWNTKvwZTMxieKSIHU7D1uW2Y').build()
+=======
+    application = ApplicationBuilder().token('TELEGRAM_KEY').build()
+>>>>>>> origin/sif
     echo_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), echo)
     start_handler = CommandHandler('start', start)
     application.add_handler(start_handler)
