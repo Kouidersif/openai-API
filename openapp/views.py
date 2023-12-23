@@ -4,6 +4,7 @@ from django.http import HttpResponse
 # Create your views here.
 from dotenv import load_dotenv
 import os
+from openai import OpenAI
 import openai
 from .models import ChatGptBot
 load_dotenv()
@@ -17,7 +18,12 @@ from django.contrib.auth import logout
 from django.contrib import messages
 
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+
+
+client = OpenAI(
+    # This is the default and can be omitted
+    api_key=os.getenv("OPENAI_API_KEY"),
+)
 
 
 
@@ -31,23 +37,35 @@ def index(request):
             #clean input from any white spaces
             clean_user_input = str(user_input).strip()
             #send request with user's prompt
-            response = openai.Completion.create(
-                model="text-davinci-003",
-                    prompt=clean_user_input,
-                    temperature=0,
-                    max_tokens=1000,
-                    top_p=1,
-                    frequency_penalty=0.5,
-                    presence_penalty=0
+            try:
+                response = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                            {
+                                "role": "user",
+                                "content": clean_user_input,
+                            }
+                        ],
                     )
-            #get response
-            bot_response = response['choices'][0]['text']
-            
-            obj, created = ChatGptBot.objects.get_or_create(
-                user=request.user,
-                messageInput=clean_user_input,
-                bot_response=bot_response.strip(),
-            )
+                #get response
+                
+                
+                bot_response = response.choices[0].message
+                
+                obj, created = ChatGptBot.objects.get_or_create(
+                    user=request.user,
+                    messageInput=clean_user_input,
+                    bot_response=bot_response.strip(),
+                )
+            except openai.APIConnectionError as e:
+                #Handle connection error here
+                messages.warning(request, f"Failed to connect to OpenAI API, check your internet connection")
+            except openai.RateLimitError as e:
+                #Handle rate limit error (we recommend using exponential backoff)
+                messages.warning(request, f"You exceeded your current quota, please check your plan and billing details.")
+                messages.warning(request, f"If you are a developper change the API Key")
+                
+
             return redirect(request.META['HTTP_REFERER'])
         else:
             #retrieve all messages belong to logged in user

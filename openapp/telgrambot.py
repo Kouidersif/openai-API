@@ -6,6 +6,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
+telegram_token = os.getenv("TELEGRAM_TOKEN")
 
 
 
@@ -37,11 +38,9 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 if __name__ == '__main__':
-<<<<<<< HEAD
-    application = ApplicationBuilder().token('6116411364:AAHVVJ-E5ZqWNTKvwZTMxieKSIHU7D1uW2Y').build()
-=======
-    application = ApplicationBuilder().token('TELEGRAM_KEY').build()
->>>>>>> origin/sif
+
+    application = ApplicationBuilder().token(telegram_token).build()
+
     echo_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), echo)
     start_handler = CommandHandler('start', start)
     application.add_handler(start_handler)
