@@ -10,10 +10,22 @@ The application comes with Login, Logout, and Sign up pages, which allow users t
 
 ![telegram-cloud-document-2-5436324961939630241](https://user-images.githubusercontent.com/109435929/219484314-820627b2-09d7-4545-837c-1f03119434f1.jpg)
 
+#Error Handling with Nice ui message using django messages framework
+
+<img width="1440" alt="image" src="https://github.com/Kouidersif/openai-API/assets/109435929/f99017ae-b72f-45d7-9e2e-111f8f4a9978">
+
+
+#LOGIN : Error Handling
+<img width="1440" alt="image" src="https://github.com/Kouidersif/openai-API/assets/109435929/468c78bb-a3c2-4642-83e6-a57c19339c7f">
+
 
 Once a user inputs a message via Telegram or the web interface, the Django application uses the OpenAI API to generate a response, which is then sent back to the user via the same channel. The application's integration with the OpenAI API allows for a wide range of possible use cases, from customer service chatbots to intelligent assistants for websites and apps.
 
 ![telegram-cloud-document-2-5436324961939630239](https://user-images.githubusercontent.com/109435929/219484568-22823544-93e8-49a6-b424-fe89992e4dbc.jpg)
+
+#a better ui in messages page:
+<img width="1440" alt="image" src="https://github.com/Kouidersif/openai-API/assets/109435929/a4a54771-9850-46fd-9aef-715835ced704">
+
 
 
 
@@ -24,8 +36,14 @@ If you're interested in exploring the possibilities of natural language generati
 Prerequisites:
 
 Python >=3.7.1 
+
+
 Git 
+
+
 OpenAI API key 
+
+
 Telegram bot token (if using Telegram integration)
 
 Clone the repository 
