@@ -8,12 +8,13 @@ import openai
 from .models import ChatGptBot
 load_dotenv()
 from django.contrib.auth import authenticate, login
-from django.views.generic import CreateView, DeleteView
+from django.views.generic import CreateView, DeleteView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import SignUpForm
+from .forms import SignUpForm, UserLoginForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth import logout
+from django.contrib import messages
 
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -71,12 +72,49 @@ class SignUp(CreateView):
         user = authenticate(username=username, password=password)
         login(self.request, user)
         return response
+    def form_invalid(self, form):
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.warning(self.request, f"{field}: {error}")
+        return redirect(self.request.META['HTTP_REFERER'])
     def get_success_url(self):
         return reverse("main")
+
+# path("login/", LoginView.as_view(next_page='main', template_name="login.html", form_class = UserLoginForm), name="login"),
+
+
+class LoginView(FormView):
+    form_class = UserLoginForm
+    template_name = "login.html"
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        # Get the user's username and password and authenticate
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        # Authenticate the user and log him/her in
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
+        messages.success(self.request, "You are logged in")
+        return response
+    def form_invalid(self, form):
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.warning(self.request, f"{field}: {error}")
+        return redirect(self.request.META['HTTP_REFERER'])
+    def get_success_url(self):
+        return reverse("main")
+
 
 
 @login_required
 def DeleteHistory(request):
     chatGptobjs = ChatGptBot.objects.filter(user = request.user)
     chatGptobjs.delete()
+    messages.success(request, "All messages have been deleted")
     return redirect(request.META['HTTP_REFERER'])
+
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, "Succesfully logged out")
+    return redirect("main")
